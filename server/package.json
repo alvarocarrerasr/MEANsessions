@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "connect-session-sequelize": "^5.0.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "mysql2": "^1.4.2",
