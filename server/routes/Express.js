@@ -2,11 +2,14 @@ const express = require('express');
 var { sequelize } = require('./../database/Sequelize');
 var session = require('express-session');
 var SequelizeStore = require('connect-session-sequelize')(session.Store);
-
+const bodyparser = require('body-parser');
 
 
 var app = express();
 var sessionStore = new SequelizeStore({ db: sequelize });
+
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: false }));
 
 app.use(session(
     {
