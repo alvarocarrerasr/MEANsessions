@@ -6,6 +6,7 @@ var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 
 var app = express();
+var sessionStore = new SequelizeStore({ db: sequelize });
 
 app.use(session(
     {
@@ -15,9 +16,11 @@ app.use(session(
         cookie: {
             expires: 36000000
         },
-        store: new SequelizeStore({ db: sequelize })
+        store: sessionStore
     }
 ));
+
+sessionStore.sync();
 
 
 
