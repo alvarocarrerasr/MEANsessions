@@ -18,6 +18,37 @@ var database = new Sequelize(
     }
 );
 
+const User = database.define('User',{
+    id: {
+        type:Sequelize.INTEGER,
+        autoIncrement:true,
+        primaryKey:true
+    },
+    username: {
+        type:Sequelize.STRING,
+        unique:true,
+        allowNull:false
+    },
+    password:{
+        type:Sequelize.STRING
+    }
+    },{createdAt:false,updatedAt:false}
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 database.authenticate()
 .then(()=>{
     console.log("Connected to database successfully");
@@ -29,5 +60,6 @@ database.authenticate()
 
 
 module.exports ={
-    sequelize:database
+    sequelize:database,
+    User
 };
