@@ -11,6 +11,19 @@ var sessionStore = new SequelizeStore({ db: sequelize });
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
 
+
+
+
+app.use(function(req, resp, next){
+    resp.header("Access-Control-Allow-Origin", "http://localhost:4200");
+    resp.header("Access-Control-Allow-Credentials", "true");
+    resp.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    resp.header("Access-Control-Allow-Methods", "POST,GET,OPTIONS,PUT,DELETE");
+    resp.removeHeader("X-Powered-By");
+    next();
+});
+
+
 app.use(session(
     {
         secret: "a real secret",

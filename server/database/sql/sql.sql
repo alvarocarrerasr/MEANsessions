@@ -31,3 +31,14 @@ CREATE TABLE GroupMembers(
     FOREIGN KEY (groupId) REFERENCES Groups (id),
     FOREIGN KEY (member) REFERENCES Users (id) 
 )
+
+CREATE TABLE Sessions (
+    sid VARCHAR(32),
+    expires DATETIME,
+    data TEXT,
+    createdAt datetime,
+    updatedAt datetime,
+    userId INT,
+    PRIMARY KEY(sid),
+    FOREIGN KEY (userId) REFERENCES Users (id)
+)

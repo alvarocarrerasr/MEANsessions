@@ -18,15 +18,7 @@ var database = new Sequelize(
     }
 );
 
-const Session = database.define('Session', {
-    sid: {
-      type: Sequelize.STRING,
-      primaryKey: true
-    },
-    userId: Sequelize.STRING,
-    expires: Sequelize.DATE,
-    data: Sequelize.STRING(50000)
-});
+
 
 const User = database.define('User',{
     id: {
@@ -44,6 +36,17 @@ const User = database.define('User',{
     }
     },{createdAt:false,updatedAt:false}
 );
+
+const Session = database.define('Session', {
+    sid: {
+      type: Sequelize.STRING,
+      primaryKey: true
+    },
+    userId: Sequelize.INTEGER,
+    expires: Sequelize.DATE,
+    data: Sequelize.STRING(50000)
+});
+Session.belongsTo(User, {foreignKey:'userId',targetKey:'id'});
 
 const Permission = database.define('Permission',{
     permissionName:{
@@ -78,5 +81,6 @@ database.authenticate()
 
 module.exports ={
     sequelize:database,
-    User
+    User,
+    Session,
 };
