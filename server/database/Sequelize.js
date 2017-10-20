@@ -18,6 +18,16 @@ var database = new Sequelize(
     }
 );
 
+const Session = database.define('Session', {
+    sid: {
+      type: Sequelize.STRING,
+      primaryKey: true
+    },
+    userId: Sequelize.STRING,
+    expires: Sequelize.DATE,
+    data: Sequelize.STRING(50000)
+});
+
 const User = database.define('User',{
     id: {
         type:Sequelize.INTEGER,
@@ -34,6 +44,13 @@ const User = database.define('User',{
     }
     },{createdAt:false,updatedAt:false}
 );
+
+const Permission = database.define('Permission',{
+    permissionName:{
+        type:Sequelize.STRING,
+        primaryKey:true
+    }
+},{createdAt:false,updatedAt:false});
 
 
 

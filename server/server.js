@@ -13,11 +13,14 @@ app.post('/login',(req, resp)=>{
     var password = req.body.passwordLogin;
     User.findOne({where:{username}})
     .then((user)=>{
-        console.log(user);
+        if(!user){
+            throw new Error("User not found");
+        }
+        resp.send({user});
     })
     .catch((err)=>{
-        console.log(err);
-    })
+        resp.sendStatus(403);
+    });
 });
 
 app.listen(PORT, ()=>{

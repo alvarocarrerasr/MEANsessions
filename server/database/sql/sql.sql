@@ -6,22 +6,28 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Permissions (
+    permissionName VARCHAR(30),
+    PRIMARY KEY(permissionName)
+);
+
+CREATE TABLE Groups (
     id INT AUTO_INCREMENT,
-    name VARCHAR(30),
-    action VARCHAR(30)
+    groupName VARCHAR(30),
     PRIMARY KEY(id)
 );
 
-CREATE TABLE Roles (
-    id INT AUTO_INCREMENT,
-    rolName VARCHAR(30),
-    PRIMARY KEY(id)
+CREATE TABLE GroupPermissions (
+    permissionName VARCHAR(30),
+    groupId INT,
+    PRIMARY KEY (permissionName, groupId),
+    FOREIGN KEY(permissionName) REFERENCES Permissions (permissionName),
+    FOREIGN KEY (groupId) REFERENCES Groups (id)
 );
 
-CREATE TABLE RolPermissions(
-    rolId INT AUTO_INCREMENT,
-    permissionID INT,
-    PRIMARY KEY(rolId, permissionID),
-    FOREIGN KEY (rolId) REFERENCES Roles (id),
-    FOREIGN KEY (permissionID) REFERENCES Permissions(id)
-);
+CREATE TABLE GroupMembers(
+    groupId INT,
+    member INT,
+    PRIMARY KEY(groupId, member),
+    FOREIGN KEY (groupId) REFERENCES Groups (id),
+    FOREIGN KEY (member) REFERENCES Users (id) 
+)
