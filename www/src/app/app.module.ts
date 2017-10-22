@@ -3,16 +3,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { PersistentAPI } from './PersistentAPI.service';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './login/register/register.component';
-import { LoginUserComponent } from './login/login-user/login-user.component';
+import { LoginUserComponent } from './login-user/login-user.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { PrivateAreaComponent } from './private-area/private-area.component';
+import { HttpsRequestInterceptor } from './InterceptorHTTP.module';
+
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -26,8 +26,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     LoginUserComponent,
     HeaderComponent,
     HomeComponent,
@@ -40,7 +38,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [
-    PersistentAPI
+    { provide: HTTP_INTERCEPTORS, useClass: HttpsRequestInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
