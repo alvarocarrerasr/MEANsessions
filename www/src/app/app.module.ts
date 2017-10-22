@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { PersistentAPI } from './PersistentAPI.service';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './login/register/register.component';
@@ -37,7 +39,9 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    PersistentAPI
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

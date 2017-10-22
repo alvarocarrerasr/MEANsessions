@@ -33,11 +33,7 @@ CREATE TABLE GroupMembers(
 )
 
 CREATE TABLE Sessions (
-    sid VARCHAR(32),
-    expires DATETIME,
-    data TEXT,
-    createdAt datetime,
-    updatedAt datetime,
+    sid VARCHAR(64)
     userId INT,
     PRIMARY KEY(sid),
     FOREIGN KEY (userId) REFERENCES Users (id)

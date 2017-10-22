@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
+import { PersistentAPI } from './../PersistentAPI.service';
 @Component({
   selector: 'app-private-area',
   templateUrl: './private-area.component.html',
@@ -9,16 +10,20 @@ import { Router } from '@angular/router';
 export class PrivateAreaComponent implements OnInit {
   private http: Http;
   private router: Router;
-  constructor(http: Http, router: Router) {
+  private persistenceAPI: PersistentAPI;
+  constructor(http: Http, router: Router, persistenceAPI: PersistentAPI) {
     this.http = http;
     this.router = router;
+    this.persistenceAPI = persistenceAPI;
   }
   ngOnInit() {
   }
   onLogoutClicked() {
-    this.http.get('http://localhost:4200/logout').subscribe((resp: Response) => {
-      this.router.navigateByUrl('');
-    });
+    const sessionToken = this.persistenceAPI.getSessionToken();
+    const headers = new Headers({ token: sessionToken });
+    this.persistenceAPI.removeSessionToken();
+    this.http.get('http://localhost:3789/logout', { headers }).subscribe();
+    this.router.navigateByUrl('');
   }
 
 }
