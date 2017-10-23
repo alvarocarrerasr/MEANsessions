@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,17 +32,16 @@ export class LoginUserComponent implements OnInit {
   }
 
   onLoginClicked() {
+
+    localStorage.setItem('token', 'undefined');
     this.http.post('http://localhost:3789/login',
       {
         usernameLogin: this.loginDetails.username,
         passwordLogin: this.loginDetails.password
-      }).toPromise()
-      .then((body) => {
-        window.localStorage.setItem('token', body.toString());
-      }).catch((err) => {
+      }).subscribe((res: {token}) => {
+        window.localStorage.setItem('token', res.token);
+        this.router.navigateByUrl('/app');
       });
-
-    this.router.navigateByUrl('/app');
 }
 
 }

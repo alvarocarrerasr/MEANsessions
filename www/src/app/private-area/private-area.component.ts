@@ -18,6 +18,7 @@ export class PrivateAreaComponent implements OnInit {
   }
   onLogoutClicked() {
     this.http.get('http://localhost:3789/logout').subscribe();
+    localStorage.removeItem('token');
     this.router.navigateByUrl('');
   }
 

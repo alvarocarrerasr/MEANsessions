@@ -10,7 +10,7 @@ const Session = database.define('Session', {
     },
     userId: Sequelize.INTEGER
 }, { createdAt: false, updatedAt: false });
-Session.belongsTo(User, { foreignKey: 'userId', targetKey: 'id' });
+
 
 Session.prototype.generateSessionForUser = (userId, callback) => {
     var currentDate = new Date().getTime();
@@ -30,6 +30,8 @@ Session.prototype.generateSessionForUser = (userId, callback) => {
         callback(err);
     });
 }
+
+Session.belongsTo(User, {foreignKey:'userId', targetKey:'id'});
 
 module.exports = {
     Session

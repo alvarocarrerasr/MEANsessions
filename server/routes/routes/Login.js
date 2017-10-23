@@ -8,7 +8,7 @@ var router = require('express').Router();
 router.post('/login',(req, resp, next)=>{
     var username = req.body.usernameLogin;
     var password = req.body.passwordLogin;
-  
+    
     models.User.findOne({where:{username}})
     .then((user)=>{
         if(!user) throw new Error("User not found");
@@ -34,13 +34,19 @@ router.post('/login',(req, resp, next)=>{
 router.get('/login',(req, resp, next)=>{
     var token = req.headers.token;
     models.Session.findOne({where:{sid:token},include:[{model:models.User}]})
-    .then((session)=>{return session.User})
+    .then((session)=>{
+        return session.User;
+    })
     .then((user)=>{
         if(!user) throw new Error("User not authenticated");
-        resp.send(user.toJSON());
+        //resp.send(user.toJSON());
+        user.getGroups();
         next();
     })
-    .catch((err)=>resp.status(403).send({error:err.toString()}))
+    .catch((err)=>{
+        resp.status(403).send({error:err.toString()});
+        console.log("Session", err);
+    })
 });
 
 router.get('/logout',(req,resp, next)=>{

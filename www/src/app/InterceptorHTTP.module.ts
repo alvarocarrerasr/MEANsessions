@@ -9,7 +9,6 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const dupReq = req.clone({setHeaders: {token: this.privateToken}});
-        console.log("token", this.privateToken);
         return next.handle(dupReq);
     }
 }
