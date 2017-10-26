@@ -1,0 +1,19 @@
+[33m[nodemon] 1.12.1[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching: *.*[39m
+[32m[nodemon] starting `node server.js`[39m
+Process listening on port 3789
+Connected to database successfully
+Session Error: Token is no valid
+    at models.Session.findOne.then (/home/alvarocr/Desktop/MEANsessions/server/routes/routes/Login.js:37:28)
+    at tryCatcher (/home/alvarocr/Desktop/MEANsessions/server/node_modules/bluebird/js/release/util.js:16:23)
+    at Promise._settlePromiseFromHandler (/home/alvarocr/Desktop/MEANsessions/server/node_modules/bluebird/js/release/promise.js:512:31)
+    at Promise._settlePromise (/home/alvarocr/Desktop/MEANsessions/server/node_modules/bluebird/js/release/promise.js:569:18)
+    at Promise._settlePromise0 (/home/alvarocr/Desktop/MEANsessions/server/node_modules/bluebird/js/release/promise.js:614:10)
+    at Promise._settlePromises (/home/alvarocr/Desktop/MEANsessions/server/node_modules/bluebird/js/release/promise.js:693:18)
+    at Async._drainQueue (/home/alvarocr/Desktop/MEANsessions/server/node_modules/bluebird/js/release/async.js:133:16)
+    at Async._drainQueues (/home/alvarocr/Desktop/MEANsessions/server/node_modules/bluebird/js/release/async.js:143:10)
+    at Immediate.Async.drainQueues (/home/alvarocr/Desktop/MEANsessions/server/node_modules/bluebird/js/release/async.js:17:14)
+    at runCallback (timers.js:672:20)
+    at tryOnImmediate (timers.js:645:5)
+    at processImmediate [as _immediateCallback] (timers.js:617:5)

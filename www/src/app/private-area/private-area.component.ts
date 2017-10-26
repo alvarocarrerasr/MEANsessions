@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-private-area',
@@ -15,10 +15,20 @@ export class PrivateAreaComponent implements OnInit {
     this.router = router;
   }
   ngOnInit() {
+    this.http.get('http://localhost:3789/login').subscribe(
+      ok => {
+        console.log(ok);
+      },
+      (err: HttpErrorResponse) => {
+        if (err.status === 403) {
+          console.log('Acceso denegado', window.localStorage.getItem('token'));
+        }
+      }
+    );
   }
   onLogoutClicked() {
     this.http.get('http://localhost:3789/logout').subscribe();
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.router.navigateByUrl('');
   }
 

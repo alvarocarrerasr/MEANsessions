@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import { Router } from '@angular/router';
+
+
+interface LoginResponse {
+  token: string;
+}
 
 @Component({
   selector: 'app-login-user',
@@ -9,10 +14,6 @@ import { Router } from '@angular/router';
 })
 export class LoginUserComponent implements OnInit {
 
-  loginDetails = {
-    username: 'prueba',
-    password: 'password'
-  };
   private http: HttpClient;
   private router: Router;
   constructor(http: HttpClient, router: Router) {
@@ -25,23 +26,37 @@ export class LoginUserComponent implements OnInit {
     if (token === 'undefined' || token === null) {
       return;
     }
-    this.http.get('http://localhost:3789/login').subscribe((res: Response) => {
-      // tslint:disable-next-line:curly
-      if (res.status === 200) this.router.navigateByUrl('/app');
-    });
+    this.router.navigateByUrl('/app');
   }
 
-  onLoginClicked() {
+  onLoginClicked(usernameIpt: HTMLInputElement, passIpt: HTMLInputElement) {
 
-    localStorage.setItem('token', 'undefined');
-    this.http.post('http://localhost:3789/login',
+    localStorage.clear();
+    localStorage.setItem('token', 'null');
+
+    this.http.post<LoginResponse>('http://localhost:3789/login',
       {
-        usernameLogin: this.loginDetails.username,
-        passwordLogin: this.loginDetails.password
-      }).subscribe((res: {token}) => {
-        window.localStorage.setItem('token', res.token);
+        usernameLogin: usernameIpt.value,
+        passwordLogin: passIpt.value
+      }).subscribe(ok => {
+        console.log('ok', ok);
+        window.localStorage.setItem('token', ok.token);
         this.router.navigateByUrl('/app');
-      });
+      },
+      (err: HttpErrorResponse) => {
+        switch (err.status) {
+          case 403:
+            alert('Username/password invalid');
+            break;
+          case 0:
+            alert('Server seems to be offline. Please retry later or contact system admin');
+            break;
+          default:
+            alert('Undefined error. Please retry later');
+            console.log(err);
+        }
+      }
+    );
 }
 
 }

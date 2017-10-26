@@ -2,11 +2,11 @@
   <h2>Login</h2>
   <div class="form-group">
     <label>Username</label>
-    <input type="text" [(ngModel)]="loginDetails.username" class="form-control" name="usernameLogin" placeholder="username">
+    <input type="text" #usernameInput class="form-control" name="usernameLogin" placeholder="username">
   </div>
   <div class="form-group">
     <label>Password</label>
-    <input type="password" [(ngModel)]="loginDetails.password" name="passwordLogin" name="passwordLogin" class="form-control" placeholder="password">
+    <input type="password" #passwordInput name="passwordLogin" name="passwordLogin" class="form-control" placeholder="password">
   </div>
-  <input type="submit" (click)="onLoginClicked()" class="btn btn-submit" value="Login">
+  <input type="submit" (click)="onLoginClicked(usernameInput, passwordInput)" class="btn btn-submit" value="Login">
 </form>
