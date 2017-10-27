@@ -1,4 +1,4 @@
-const {sequelize} = require('./../../database/Sequelize');
+const {database} = require('./../../database/Sequelize');
 const models = require('./../../database/Models');
 const bcrypt = require('bcrypt');
 
@@ -33,11 +33,10 @@ router.post('/login',(req, resp, next)=>{
 
 router.get('/login',(req, resp, next)=>{
     var token = req.headers.token;
-    models.Session.findOne({where:{sid:token},include:[{model:models.User}]})
-    .then((session)=>{
-        if(!session) throw new Error('Token is no valid');
-        return session.User;
-    }).then((user)=>{
+    database.query(`SELECT * FROM Users WHERE id = (SELECT userId FROM Sessions WHERE sid='${token}')`,
+        {model:models.User, type:database.QueryTypes.SELECT})
+    .then((users)=>{
+        const user = users[0];
         if(!user) throw new Error('User not authenticated');
         var currentUser = user.toJSON();
         user.getGroups()
