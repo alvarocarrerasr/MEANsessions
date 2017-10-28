@@ -1,3 +1,11 @@
-<p>
-  <input type="button" class="btn" (click)="onLogoutClicked()" value="Logout">
-</p>
+<app-header-session></app-header-session>
+
+<ul>
+  <li> Id de usuario : {{ userData?.id }}</li>
+  <li> Nombre de usuario : {{ userData?.username }} </li>
+  <li> Grupos:
+    <ul>
+      <li *ngFor="let group of userData?.groups"> {{group}}</li>
+    </ul>
+  </li>
+</ul>

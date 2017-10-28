@@ -26,7 +26,6 @@ router.post('/login',(req, resp, next)=>{
             next();
         });
     }).catch((err)=>{
-        console.log(err);
         resp.status(403).send({error:err.toString()});
     })
 });

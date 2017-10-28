@@ -5,10 +5,9 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
-    private privateToken = window.localStorage.getItem('token');
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const dupReq = req.clone({setHeaders: {token: this.privateToken}});
+        const dupReq = req.clone({setHeaders: {token: window.localStorage.getItem('token')}});
         return next.handle(dupReq);
     }
 }

@@ -7,7 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { LoginUserComponent } from './login-user/login-user.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderSessionComponent } from './private-area/header-session/header-session.component';
 import { HomeComponent } from './home/home.component';
 import { PrivateAreaComponent } from './private-area/private-area.component';
 import { HttpsRequestInterceptor } from './InterceptorHTTP.module';
@@ -26,7 +26,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginUserComponent,
-    HeaderComponent,
+    HeaderSessionComponent,
     HomeComponent,
     PrivateAreaComponent
   ],
