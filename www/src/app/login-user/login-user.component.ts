@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import * as constants from './../globals';
 
 interface LoginResponse {
   token: string;
@@ -34,7 +34,7 @@ export class LoginUserComponent implements OnInit {
     localStorage.clear();
     localStorage.setItem('token', 'null');
 
-    this.http.post<LoginResponse>('http://localhost:3789/login',
+    this.http.post<LoginResponse>(`${constants.SERVERURL}/login`,
       {
         usernameLogin: usernameIpt.value,
         passwordLogin: passIpt.value

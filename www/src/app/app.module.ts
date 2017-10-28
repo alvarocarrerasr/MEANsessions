@@ -37,8 +37,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [
+    { provide : 'ServerURL', useValue: 'localhost'},
     { provide: HTTP_INTERCEPTORS, useClass: HttpsRequestInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  public static SERVERURL = 'http://wwww';
+}

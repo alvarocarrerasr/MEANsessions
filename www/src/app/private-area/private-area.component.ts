@@ -2,6 +2,7 @@ import { Component,  AfterViewInit, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { IUserData } from './UserData.model';
+import * as constants from './../globals';
 
 @Component({
   selector: 'app-private-area',
@@ -19,7 +20,7 @@ export class PrivateAreaComponent implements OnInit {
     this.router = router;
   }
   ngOnInit() {
-    this.http.get<IUserData>('http://localhost:3789/login').subscribe(
+    this.http.get<IUserData>(`${constants.SERVERURL}/login`).subscribe(
       ok => {
         this.userData = ok;
       },
